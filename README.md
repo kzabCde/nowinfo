@@ -25,8 +25,12 @@ npm run build
 npm start
 ```
 
-## What is implemented — v0.2
+## What is implemented — v0.3 (review branch)
 
+- Headline-evidence topic filters, conservative event grouping with publisher links and timelines.
+- Local interests (topics, countries, literal keywords), followed events, reading status and newly discovered articles.
+- Thailand view separates direct mentions from global trade, energy and tourism watch topics.
+- Version 3 JSON backups include the local workspace and accept version 2 backups.
 - Seventeen RSS feeds, including seven regional BBC feeds plus DW, France 24, Al Jazeera, CNA, Federal Reserve and UN News.
 - Interactive world map with regional filters and a 24-hour publication activity chart.
 - Dark/light themes, remembered across visits without an initial theme flash.
@@ -41,7 +45,7 @@ npm start
 
 ## Honest limitations
 
-Headlines remain in the publisher's language. Context prompts are general category questions, **not AI-generated analysis of the story**. No event clustering, translation, impact scores, accounts, automatic cross-device sync or server-side article archive. Source coverage is limited. Partial/all-source outages are shown explicitly; no fake headlines are used.
+Headlines remain in the publisher's language. Context prompts are general category questions, **not AI-generated analysis of the story**. No AI translation, impact scores, accounts, automatic cross-device sync or server-side article archive. Event groups use headline similarity and can be imperfect. Source coverage is limited. Partial/all-source outages are shown explicitly; no fake headlines are used.
 
 This project only displays feed headlines and links, not article bodies or publisher images. Review each provider's terms before commercial expansion.
 
@@ -51,6 +55,8 @@ This project only displays feed headlines and links, not article bodies or publi
 - [Deployment](docs/DEPLOYMENT.md)
 - [Verification report](docs/VERIFICATION.md)
 - [Global dashboard and local storage design](docs/DASHBOARD-v0.2.md)
+
+- [v0.3 scope, acceptance checks and limits](docs/PHASE-3.md)
 
 ## Stack
 
