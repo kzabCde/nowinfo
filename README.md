@@ -25,9 +25,12 @@ npm run build
 npm start
 ```
 
-## What is implemented
+## What is implemented — v0.2
 
-- Six RSS feeds: BBC World, Business, Technology, Science & Environment, Federal Reserve, UN News.
+- Seventeen RSS feeds, including seven regional BBC feeds plus DW, France 24, Al Jazeera, CNA, Federal Reserve and UN News.
+- Interactive world map with regional filters and a 24-hour publication activity chart.
+- Dark/light themes, remembered across visits without an initial theme flash.
+- Local news cache (up to 500 headlines / 7 days), persistent filters and JSON backup export/import.
 - Safe XML parsing, bounded upstream requests, independent source failure handling.
 - URL/headline deduplication, publication timestamps, keyword-based categories.
 - Search, category/source filters, newest/oldest order, incremental listing.
@@ -38,7 +41,7 @@ npm start
 
 ## Honest limitations
 
-Headlines remain in the publisher's language. Context prompts are general category questions, **not AI-generated analysis of the story**. No event clustering, translation, impact scores, accounts, cross-device sync or permanent article archive yet. Source coverage is limited. Partial/all-source outages are shown explicitly; no fake headlines are used.
+Headlines remain in the publisher's language. Context prompts are general category questions, **not AI-generated analysis of the story**. No event clustering, translation, impact scores, accounts, automatic cross-device sync or server-side article archive. Source coverage is limited. Partial/all-source outages are shown explicitly; no fake headlines are used.
 
 This project only displays feed headlines and links, not article bodies or publisher images. Review each provider's terms before commercial expansion.
 
@@ -47,6 +50,7 @@ This project only displays feed headlines and links, not article bodies or publi
 - [Product plan / แผนโครงการ](docs/PROJECT-PLAN.th.md)
 - [Deployment](docs/DEPLOYMENT.md)
 - [Verification report](docs/VERIFICATION.md)
+- [Global dashboard and local storage design](docs/DASHBOARD-v0.2.md)
 
 ## Stack
 
