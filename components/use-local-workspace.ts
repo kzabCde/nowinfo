@@ -7,13 +7,15 @@ export default function useLocalWorkspace(){
   const [workspace,setWorkspace]=useState<LocalWorkspace>(()=>emptyWorkspace());
   const [ready,setReady]=useState(false);
   const [error,setError]=useState(false);
+  const [baseline,setBaseline]=useState(0);
   useEffect(()=>{
-    try{const raw=localStorage.getItem(WORKSPACE_KEY);if(raw)setWorkspace(validateWorkspace(JSON.parse(raw)) as LocalWorkspace);}catch{setError(true);}
+    const now=Date.now();
+    try{const raw=localStorage.getItem(WORKSPACE_KEY);const stored=raw?validateWorkspace(JSON.parse(raw)) as LocalWorkspace:emptyWorkspace();setBaseline(stored.lastVisitAt||0);setWorkspace({...stored,lastVisitAt:now});}catch{setError(true);}
     setReady(true);
   },[]);
   useEffect(()=>{
     if(!ready)return;
     try{localStorage.setItem(WORKSPACE_KEY,JSON.stringify(workspace));}catch{setError(true);}
   },[workspace,ready]);
-  return {workspace,setWorkspace,ready,error};
+  return {workspace,setWorkspace,ready,error,baseline};
 }

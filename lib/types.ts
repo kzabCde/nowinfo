@@ -5,4 +5,6 @@ export type FeedSource={id:string;name:string;publisher:string;category:Category
 export type NewsData={articles:Article[];sources:FeedSource[];fetchedAt:string};
 export type NewsEvent={id:string;title:string;articles:Article[];publishers:string[];regions:string[];topics:string[];countries:string[];sharedTerms:string[];latestAt:string|null};
 export type Interests={topics:string[];countries:string[];keywords:string[]};
-export type LocalWorkspace={version:number;interests:Interests};
+export type ReadingRecord={url:string;firstSeenAt:number;readAt:number|null;changedAt:number};
+export type TrackedEvent={id:string;title:string;urls:string[];followedAt:number};
+export type LocalWorkspace={version:number;interests:Interests;history:ReadingRecord[];trackedEvents:TrackedEvent[];lastVisitAt:number};
