@@ -38,3 +38,15 @@
 The user created `kzabCde/nowinfo` with an initial README. GitHub write access and Vercel linkage to that repository were verified on 2026-09-12. Application source is being imported on top of the existing initial commit, preserving the user-authored introduction. The direct deployment checks above predate this Git import; the Git-triggered deployment must be verified separately.
 
 AI translation, event clustering, event-specific impact analysis, permanent storage and account synchronization are roadmap items, not shipped capabilities.
+
+## v0.2 global dashboard — 2026-09-12 follow-up
+
+- Git-triggered production deployment of `e0daa27` verified READY in Singapore (`sin1`).
+- Live dashboard retrieved 17/17 feeds, 344 cached headlines and coverage in all 7 named regions at the time of inspection. Counts vary over time.
+- `npm test`: 13/13 passed; `npm run build`: passed with TypeScript checks.
+- Inspected dark and light desktop layouts. No horizontal overflow at 1363px viewport.
+- Asia filter returned 54 stories; region selection and light theme persisted after reload.
+- Saved a story, reloaded, and verified it remained in the reading list; removed the test bookmark afterward.
+- Exported an actual JSON backup and imported it through the file chooser. The page confirmed a successful merge.
+- Detected React hydration error #418. A separate DOM hydration reproduction traced it to multi-child SVG `<title>` text in the regional map. Changed the title to a single interpolated string; the same reproduction now reports zero recoverable hydration errors.
+- Mobile layouts are implemented in CSS; this follow-up did not exercise a mobile browser viewport.
