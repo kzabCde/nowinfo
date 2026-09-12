@@ -15,3 +15,12 @@ test('Thailand is based on explicit mention, not an assumed economic impact',()=
   assert.deepEqual(mentionedCountries('US and Thailand agree a trade deal'),['th','us']);
   assert.deepEqual(mentionedCountries('A question for us'),[]);
 });
+
+test('Thailand lenses separate explicit mentions from global topics to monitor',async()=>{
+ const {matchesThailandLens}=await import('../lib/thailand.mjs');
+ const globalOil={title:'Oil prices rise as OPEC cuts production'};
+ assert.equal(matchesThailandLens(globalOil,'direct'),false);
+ assert.equal(matchesThailandLens(globalOil,'energy'),true);
+ assert.equal(matchesThailandLens({title:'Thailand reopens border crossing'},'direct'),true);
+ assert.equal(matchesThailandLens({title:'Airlines cancel flights after travel restrictions'},'tourism'),true);
+});
