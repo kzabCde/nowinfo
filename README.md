@@ -17,7 +17,7 @@ npm ci
 npm run dev
 ```
 
-Open http://localhost:3000. No API keys or database required.
+Open http://localhost:3000. No database is required. The news desk works without API keys; optional Thai headline translation requires `GOOGLE_TRANSLATE_API_KEY` in `.env.local`.
 
 ```bash
 npm test
@@ -34,6 +34,7 @@ npm start
 - Seventeen RSS feeds, including seven regional BBC feeds plus DW, France 24, Al Jazeera, CNA, Federal Reserve and UN News.
 - Interactive world map with regional filters and a 24-hour publication activity chart.
 - Dark/light themes, remembered across visits without an initial theme flash.
+- Optional automatic Thai headline translation for visible stories, with original-title toggles, failure fallback and a 30-day local translation cache.
 - Local news cache (up to 500 headlines / 7 days), persistent filters and JSON backup export/import.
 - Safe XML parsing, bounded upstream requests, independent source failure handling.
 - URL/headline deduplication, publication timestamps, keyword-based categories.
@@ -45,7 +46,7 @@ npm start
 
 ## Honest limitations
 
-Headlines remain in the publisher's language. Context prompts are general category questions, **not AI-generated analysis of the story**. No AI translation, impact scores, accounts, automatic cross-device sync or server-side article archive. Event groups use headline similarity and can be imperfect. Source coverage is limited. Partial/all-source outages are shown explicitly; no fake headlines are used.
+When Cloud Translation is configured, selecting TH requests automatic translations for visible headlines. Original titles remain available and are always used when translation is unavailable. Machine translation can be inaccurate, especially for names and ambiguous short text. Context prompts are general category questions, **not AI-generated analysis of the story**. There are no impact scores, accounts, automatic cross-device sync or server-side article archives. Event groups use headline similarity and can be imperfect. Source coverage is limited. Partial/all-source outages are shown explicitly; no fake headlines are used.
 
 This project only displays feed headlines and links, not article bodies or publisher images. Review each provider's terms before commercial expansion.
 
@@ -57,6 +58,7 @@ This project only displays feed headlines and links, not article bodies or publi
 - [Global dashboard and local storage design](docs/DASHBOARD-v0.2.md)
 
 - [v0.3 scope, acceptance checks and limits](docs/PHASE-3.md)
+- [Thai headline translation setup and limits](docs/TRANSLATION.md)
 
 ## Stack
 
