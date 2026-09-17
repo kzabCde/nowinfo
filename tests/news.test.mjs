@@ -16,6 +16,17 @@ test('Thai publisher metadata, entities and Thai keyword categories are retained
  const transit=parseFeed(rss('<item><title>รถไฟฟ้า 45 บาท เริ่มปี 2570</title><link>https://example.com/transit</link></item>'),thaiSource);assert.equal(transit[0].category,'world');
  const electricity=parseFeed(rss('<item><title>ค่าไฟปรับขึ้นหลังต้นทุนเชื้อเพลิงเพิ่ม</title><link>https://example.com/electricity</link></item>'),thaiSource);assert.equal(electricity[0].category,'energy');
 });
+test('requested Thailand publishers are registered with local market metadata',()=>{
+ const ids=['thaipbs','pptv','tnn','workpointtoday','bangkokbiznews'];
+ for(const id of ids){
+   const item=sources.find(source=>source.id===id);
+   assert.ok(item,`${id} source missing`);
+   assert.equal(item.market,'thailand');
+   assert.equal(item.language,'th');
+   assert.equal(item.via,'google-news');
+   assert.match(item.url,/^https:\/\/news\.google\.com\/rss\/search\?/);
+ }
+});
 test('reject invalid XML and entity declarations',()=>{assert.throws(()=>parseFeed('<rss>',source));assert.throws(()=>parseFeed('<!DOCTYPE rss [<!ENTITY x SYSTEM "file:///etc/passwd">]><rss/>',source));});
 test('deduplicate URLs and normalized headlines across feeds',()=>{
  const items=parseFeed(rss('<item><title>Hello world</title><link>https://example.com/a</link></item><item><title>Hello, world!</title><link>https://example.com/b</link></item>'),source);assert.equal(deduplicate(items).length,1);
