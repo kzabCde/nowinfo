@@ -1,7 +1,9 @@
 export type Region='asia'|'europe'|'africa'|'middle-east'|'north-america'|'latin-america'|'oceania'|'global';
 export type Category='world'|'economy'|'technology'|'energy'|'climate';
-export type Article={id:string;title:string;url:string;publishedAt:string|null;sourceId:string;source:string;category:Category;regions:Region[]};
-export type FeedSource={id:string;name:string;publisher:string;category:Category;url:string;site:string;region:Region;status:'ok'|'unavailable';checkedAt:string;count:number};
+export type SourceMarket='global'|'thailand';
+export type SourceLanguage='en'|'th';
+export type Article={id:string;title:string;url:string;publishedAt:string|null;sourceId:string;source:string;category:Category;regions:Region[];language:SourceLanguage;market:SourceMarket};
+export type FeedSource={id:string;name:string;publisher:string;category:Category;url:string;site:string;region:Region;language:SourceLanguage;market:SourceMarket;status:'ok'|'unavailable';checkedAt:string;count:number};
 export type NewsData={articles:Article[];sources:FeedSource[];fetchedAt:string};
 export type NewsEvent={id:string;title:string;articles:Article[];publishers:string[];regions:string[];topics:string[];countries:string[];sharedTerms:string[];latestAt:string|null};
 export type Interests={topics:string[];countries:string[];keywords:string[]};
