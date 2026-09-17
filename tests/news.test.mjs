@@ -7,11 +7,12 @@ test('untrusted RSS: plain titles, valid URLs and honest dates',()=>{
  const xml=rss('<item><title><![CDATA[Oil &amp; gas <b>update</b>]]></title><link>https://example.com/news?utm_source=rss</link><pubDate>invalid</pubDate></item><item><title>Unsafe</title><link>javascript:alert(1)</link></item>');
  const result=parseFeed(xml,source);assert.equal(result.length,1);assert.equal(result[0].publishedAt,null);assert.equal(result[0].url,'https://example.com/news');assert.equal(result[0].category,'energy');assert.equal(result[0].language,'en');assert.equal(result[0].market,'global');assert.ok(!result[0].title.includes('<b>'));assert.equal(safeUrl('https://user:pass@example.com'),null);
 });
-test('Thai publisher metadata and Thai keyword categories are retained',()=>{
+test('Thai publisher metadata, entities and Thai keyword categories are retained',()=>{
  const thaiSource=sources.find(item=>item.id==='matichon');
  assert.ok(thaiSource);assert.equal(thaiSource.market,'thailand');assert.equal(thaiSource.language,'th');
- const result=parseFeed(rss('<item><title>เศรษฐกิจไทยจับตาดอกเบี้ยและเงินเฟ้อ</title><link>https://example.com/thai</link></item>'),thaiSource);
- assert.equal(result[0].category,'economy');assert.equal(result[0].language,'th');assert.equal(result[0].market,'thailand');assert.ok(result[0].regions.includes('asia'));
+ const economy=parseFeed(rss('<item><title>&amp;#8216;เศรษฐกิจไทย&amp;#8217; จับตาดอกเบี้ยและเงินเฟ้อ</title><link>https://example.com/thai</link></item>'),thaiSource);
+ assert.equal(economy[0].title,'‘เศรษฐกิจไทย’ จับตาดอกเบี้ยและเงินเฟ้อ');assert.equal(economy[0].category,'economy');assert.equal(economy[0].language,'th');assert.equal(economy[0].market,'thailand');assert.ok(economy[0].regions.includes('asia'));
+ const weather=parseFeed(rss('<item><title>ฝนถล่ม น้ำป่าไหลหลาก เสี่ยงท่วมฉับพลัน</title><link>https://example.com/weather</link></item>'),thaiSource);assert.equal(weather[0].category,'climate');
 });
 test('reject invalid XML and entity declarations',()=>{assert.throws(()=>parseFeed('<rss>',source));assert.throws(()=>parseFeed('<!DOCTYPE rss [<!ENTITY x SYSTEM "file:///etc/passwd">]><rss/>',source));});
 test('deduplicate URLs and normalized headlines across feeds',()=>{
