@@ -16,6 +16,30 @@ test('Thai publisher metadata, entities and Thai keyword categories are retained
  const transit=parseFeed(rss('<item><title>รถไฟฟ้า 45 บาท เริ่มปี 2570</title><link>https://example.com/transit</link></item>'),thaiSource);assert.equal(transit[0].category,'world');
  const electricity=parseFeed(rss('<item><title>ค่าไฟปรับขึ้นหลังต้นทุนเชื้อเพลิงเพิ่ม</title><link>https://example.com/electricity</link></item>'),thaiSource);assert.equal(electricity[0].category,'energy');
 });
+test('requested Thailand publishers are registered with local market metadata',()=>{
+ const ids=['thaipbs','pptv','tnn','workpointtoday','bangkokbiznews'];
+ for(const id of ids){
+   const item=sources.find(source=>source.id===id);
+   assert.ok(item,`${id} source missing`);
+   assert.equal(item.market,'thailand');
+   assert.equal(item.language,'th');
+   assert.equal(item.via,'google-news');
+   assert.match(item.url,/^https:\/\/news\.google\.com\/rss\/search\?/);
+ }
+});
+test('requested publisher bridge queries stay scoped to their official domains',()=>{
+ const expected={
+  thaipbs:'site:thaipbs.or.th/news',
+  pptv:'site:pptvhd36.com/news',
+  tnn:'site:tnnthailand.com',
+  workpointtoday:'site:workpointtoday.com',
+  bangkokbiznews:'site:bangkokbiznews.com'
+ };
+ for(const [id,query] of Object.entries(expected)){
+  const item=sources.find(source=>source.id===id);assert.ok(item);
+  const url=new URL(item.url);assert.equal(url.hostname,'news.google.com');assert.equal(url.pathname,'/rss/search');assert.equal(url.searchParams.get('q'),query);assert.equal(url.searchParams.get('gl'),'TH');assert.equal(url.searchParams.get('ceid'),'TH:th');
+ }
+});
 test('reject invalid XML and entity declarations',()=>{assert.throws(()=>parseFeed('<rss>',source));assert.throws(()=>parseFeed('<!DOCTYPE rss [<!ENTITY x SYSTEM "file:///etc/passwd">]><rss/>',source));});
 test('deduplicate URLs and normalized headlines across feeds',()=>{
  const items=parseFeed(rss('<item><title>Hello world</title><link>https://example.com/a</link></item><item><title>Hello, world!</title><link>https://example.com/b</link></item>'),source);assert.equal(deduplicate(items).length,1);
