@@ -13,6 +13,8 @@ test('Thai publisher metadata, entities and Thai keyword categories are retained
  const economy=parseFeed(rss('<item><title>&amp;#8216;เศรษฐกิจไทย&amp;#8217; จับตาดอกเบี้ยและเงินเฟ้อ</title><link>https://example.com/thai</link></item>'),thaiSource);
  assert.equal(economy[0].title,'‘เศรษฐกิจไทย’ จับตาดอกเบี้ยและเงินเฟ้อ');assert.equal(economy[0].category,'economy');assert.equal(economy[0].language,'th');assert.equal(economy[0].market,'thailand');assert.ok(economy[0].regions.includes('asia'));
  const weather=parseFeed(rss('<item><title>ฝนถล่ม น้ำป่าไหลหลาก เสี่ยงท่วมฉับพลัน</title><link>https://example.com/weather</link></item>'),thaiSource);assert.equal(weather[0].category,'climate');
+ const transit=parseFeed(rss('<item><title>รถไฟฟ้า 45 บาท เริ่มปี 2570</title><link>https://example.com/transit</link></item>'),thaiSource);assert.equal(transit[0].category,'world');
+ const electricity=parseFeed(rss('<item><title>ค่าไฟปรับขึ้นหลังต้นทุนเชื้อเพลิงเพิ่ม</title><link>https://example.com/electricity</link></item>'),thaiSource);assert.equal(electricity[0].category,'energy');
 });
 test('reject invalid XML and entity declarations',()=>{assert.throws(()=>parseFeed('<rss>',source));assert.throws(()=>parseFeed('<!DOCTYPE rss [<!ENTITY x SYSTEM "file:///etc/passwd">]><rss/>',source));});
 test('deduplicate URLs and normalized headlines across feeds',()=>{
